@@ -3,7 +3,7 @@ const fs = require("fs");
 const frontEndContractsFile =
   "../nft-marketplace-nextjs-moralis/constants/networkMapping.json";
 module.exports = async function () {
-  if (process.env.UPDATE_FTONT_END) {
+  if (process.env.UPDATE_FRONT_END) {
     console.log("updating front end ...");
     await updateContractAddresses();
   }
@@ -24,7 +24,7 @@ async function updateContractAddresses() {
       contractAddresses[chainId][NftMarketplace].push(nftMarketplace.address);
     }
   } else {
-    contractAddresses[chainId]["NftMarketplace"] = nftMarketplace.address;
+    contractAddresses[chainId] = { NftMarketplace: [nftMarketplace.address] };
   }
   fs.writeFileSync(frontEndContractsFile, JSON.stringify(contractAddresses));
 }
